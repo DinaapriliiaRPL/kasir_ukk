@@ -12,8 +12,14 @@ class homepage extends StatefulWidget {
 class _homepageState extends State<homepage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(length: 4, child: 
+     Scaffold(
       appBar: AppBar(
+        bottom: TabBar(tabs: [
+          Tab(icon: Icon(Icons.people, color: Colors.white), child: Text('Customer')),
+          Tab(icon: Icon(Icons.inventory, color: Colors.white), child: Text('Produk')),
+          Tab(icon: Icon(Icons.shopping_cart, color: Colors.white), child: Text('Penjualan'))
+        ],),
         backgroundColor: Colors.pink[300],
         title: const Text('Informasi Kasirku'),
         centerTitle: true,
@@ -26,6 +32,13 @@ class _homepageState extends State<homepage> {
           },
         ),
       ),
-    );
+      body: TabBarView(
+        children: [
+          Center(child: Text ('Customer')),
+          Center(child: Text('Produk')),
+          Center(child: Text('Penjualan')),
+        ],
+      ),
+    ));
   }
 }

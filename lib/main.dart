@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'login.dart';
+import 'sign.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+      //url dan anonkey dari supabase
+      url: 'https://dbxmbtmnbukghijkwhxu.supabase.co',
+      anonKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRieG1idG1uYnVrZ2hpamt3aHh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYzODQ5NzAsImV4cCI6MjA1MTk2MDk3MH0.SVpjIYFIqFxNPMaQeaxB7jefIGGimEnLmcW39AoFg38');
   runApp(const MyApp());
 }
 
@@ -23,100 +31,105 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 30),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-            Color(0xFFEC407A),
-            Color(0xFFF48FB1),
-            Color(0xFFF8BBD0)
-          ]),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Center(
-              child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "WELCOME BACK",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 30),
+          // width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+              Color(0xFFEC407A),
+              Color(0xFFF48FB1),
+              Color(0xFFF8BBD0)
+            ]),
+          ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "WELCOME BACK",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
+                          ),
+                          Text(
+                            "halaman login",
+                            style: TextStyle(color: Colors.white, fontSize: 10),
+                          ),
+                          Image.asset(
+                            'asset/image/boba.png',
+                            height: 300,
+                            width: 500,
+                          ),
+                        ],
+                      )),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>loginpage(),//kode untuk ke halaman login.dart
                         ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      Text(
-                        "halaman login",
-                        style: TextStyle(color: Colors.white, fontSize: 10),
-                      ),
-                      Image.asset(
-                        'asset/image/boba.png',
-                        height: 200,
-                        width: 500,
-                      ),
-                    ],
-                  )),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.person),
-                hintText: 'Username',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              obscureText: true, //agar pasword titik titik
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock),
-                hintText: 'Password',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => homepage(
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
                 ),
-                minimumSize: Size(double.infinity, 50),
-              ),
-              child: Text(
-                'Login',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-            )
-          ],
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>signpage(),//kode untuk ke halaman login.dart
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    child: Text(
+                      'Registrasi',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      ),
     );
   }
 }
