@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lat_kasirflutter/insert.dart';
+import 'package:lat_kasirflutter/indexpelanggan.dart';
+import 'package:lat_kasirflutter/insertpelanggan.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
@@ -44,7 +45,7 @@ class _homepageState extends State<homepage> {
           ),
           body: TabBarView(
             children: [
-              Center(child: Text('Customer')),
+              indexpage(),
               Center(child: Text('Produk')),
               Center(child: Text('Penjualan')),
             ],
