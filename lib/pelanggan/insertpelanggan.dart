@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import '../home.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class insertpage extends StatefulWidget {
@@ -111,7 +111,7 @@ class _insertpageState extends State<insertpage> {
                 ElevatedButton(
                   onPressed: AddPelanggan,
                   child: const Text('Tambah'),
-                ),
+                ),  
               ],
             ),
           )),

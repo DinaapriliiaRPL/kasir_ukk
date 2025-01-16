@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lat_kasirflutter/home.dart';
-import 'package:lat_kasirflutter/insertpelanggan.dart';
+import 'package:lat_kasirflutter/pelanggan/insertpelanggan.dart';
+import 'package:lat_kasirflutter/produk/insertproduk.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'updatepelanggan.dart';
 
 class indexpage extends StatefulWidget {
   const indexpage({super.key});
@@ -58,39 +60,40 @@ class _indexpageState extends State<indexpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoading
-          ? Center(
+      ? Center(
               child: LoadingAnimationWidget.twoRotatingArc(
                   color: const Color.fromARGB(255, 240, 194, 209), size: 30),
             )
           : pelanggan.isEmpty
-              ? Center(
-                  child: Text(
-                    'Tidak ada pelanggan',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                )
-              : GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 0.8),
-                  padding: EdgeInsets.all(8),
-                  itemCount: pelanggan.length,
-                  itemBuilder: (context, index) {
-                    final langgan = pelanggan[index];
+          ? Center(
+              child: Text(
+                'Tidak ada pelanggan',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            )
+            : GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 0.8
+                ),
+                padding: EdgeInsets.all(8),
+                itemCount: pelanggan.length,
+                itemBuilder: (context, index) {
+                  final langgan = pelanggan[index];
                     return Card(
                       elevation: 4,
                       margin: EdgeInsets.symmetric(vertical: 8),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                        borderRadius: BorderRadius.circular(12)
+                      ),
                       child: Padding(
                         padding: EdgeInsets.all(12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              langgan['NamaPelanggan'] ??
-                                  'Pelanggan tidak tersedia',
+                              langgan['NamaPelanggan'] ??'Pelanggan tidak tersedia',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -119,21 +122,29 @@ class _indexpageState extends State<indexpage> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.edit,
-                                      color: Colors.blueAccent),
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.blueAccent
+                                  ),
                                   onPressed: () {
-                                    final Pelangganid = langgan[
-                                            'Pelangganid'] ??
-                                        0; // Pastikan ini sesuai dengan kolom di database
+                                    final Pelangganid = langgan['Pelangganid'] ??0; // Pastikan ini sesuai dengan kolom di database
                                     if (Pelangganid != 0) {
+                                      Navigator.push(
+                                        context,MaterialPageRoute(
+                                          builder: (context) => updatepage(
+                                          Pelangganid: Pelangganid)
+                                        )
+                                      );
                                     } else {
                                       print('ID pelanggan tidak valid');
                                     }
                                   },
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.delete,
-                                      color: Colors.redAccent),
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.redAccent
+                                  ),
                                   onPressed: () {
                                     showDialog(
                                       context: context,
@@ -170,6 +181,14 @@ class _indexpageState extends State<indexpage> {
                     );
                   },
                 ),
-    );
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => insertpage()
+                  )
+                );
+            },
+            child: Icon(Icons.add, color: Colors.pink[300],)));
+    
   }
 }
