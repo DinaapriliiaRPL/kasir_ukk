@@ -28,7 +28,7 @@ class _addprodukState extends State<addproduk> {
           'Stok': Stok,
         }
       ]);
-      if (response.error != null) {
+      if (response!= null) {
         Navigator.pushReplacement(context, 
         MaterialPageRoute(builder: (context) => homepage()),
         );
