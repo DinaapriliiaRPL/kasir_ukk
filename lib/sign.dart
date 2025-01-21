@@ -79,6 +79,34 @@ class signpageState extends State<signpage> {
                 ),
               ),
             ),
+            
+            SizedBox(height: 10),SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Arahkan ke halaman Home setelah klik Register
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => homepage(), // Arahkan ke halaman home.dart
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                minimumSize: Size(double.infinity, 50),
+              ),
+              child: Text(
+                'Register',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+              )
+              )
+            )
           ],
         ),
       ),

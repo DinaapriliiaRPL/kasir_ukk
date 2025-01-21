@@ -44,7 +44,7 @@ class _homepageState extends State<homepage> {
             ],
           ),
           backgroundColor: Colors.pink[300],
-          title: const Text('Informasi Kasirku'),
+          title: const Text("D'Qasir"),
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.menu), // Ikon menu untuk membuka drawer
@@ -65,7 +65,7 @@ class _homepageState extends State<homepage> {
                 child: Text(
                   'Menu',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 24,
                   ),
                 ),

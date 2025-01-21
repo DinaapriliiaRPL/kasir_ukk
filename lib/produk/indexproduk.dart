@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lat_kasirflutter/produk/insertproduk.dart';
+import 'package:lat_kasirflutter/produk/updateproduk.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -31,7 +32,7 @@ class _dinaprodukState extends State<dinaproduk> {
         isLoading = false;
       });
     } catch (e) {
-      print('error: $e');
+      print('error fetching produk: $e');
       setState(() {
         isLoading = false;
       });
@@ -40,10 +41,13 @@ class _dinaprodukState extends State<dinaproduk> {
 
   Future<void> deleteProduk(int id) async {
     try {
-      await Supabase.instance.client.from('produk').delete().eq('Produkid', id);
+      await Supabase.instance.client
+      .from('produk')
+      .delete()
+      .eq('Produkid', id);
       fetchProduk();
     } catch (e) {
-      print('error: $e');
+      print('error deleting produk: $e');
     }
   }
 
@@ -108,63 +112,63 @@ class _dinaprodukState extends State<dinaproduk> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                // const Divider(),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.end,
-                                //   children: [
-                                //     IconButton(
-                                //       icon: const Icon(Icons.edit,
-                                //           color: Colors.blueAccent),
-                                //       onPressed: () {
-                                //         final Produkid = produk['Produkid'] ??
-                                //             0; // Pastikan ini sesuai dengan kolom di database
-                                //         if (Produkid != 0) {
-                                //           Navigator.push(
-                                //               context,
-                                //               MaterialPageRoute(
-                                //                   builder: (context) =>
-                                //                       updatepage(
-                                //                           Pelangganid:
-                                //                               Pelangganid)));
-                                //         } else {
-                                //           print('ID pelanggan tidak valid');
-                                //         }
-                                //       },
-                                //     ),
-                                //     IconButton(
-                                //       icon: const Icon(Icons.delete,
-                                //           color: Colors.redAccent),
-                                //       onPressed: () {
-                                //         showDialog(
-                                //           context: context,
-                                //           builder: (BuildContext context) {
-                                //             return AlertDialog(
-                                //               title:
-                                //                   const Text('Hapus Pelanggan'),
-                                //               content: const Text(
-                                //                   'Apakah Anda yakin ingin menghapus pelanggan ini?'),
-                                //               actions: [
-                                //                 TextButton(
-                                //                   onPressed: () =>
-                                //                       Navigator.pop(context),
-                                //                   child: const Text('Batal'),
-                                //                 ),
-                                //                 TextButton(
-                                //                   onPressed: () {
-                                //                     deletePelanggan(
-                                //                         langgan['Pelangganid']);
-                                //                     Navigator.pop(context);
-                                //                   },
-                                //                   child: const Text('Hapus'),
-                                //                 ),
-                                //               ],
-                                //             );
-                                //           },
-                                //         );
-                                //       },
-                                //     ),
-                                //   ],
-                                // ),
+                                const Divider(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit,
+                                          color: Colors.blueAccent),
+                                      onPressed: () {
+                                        final Produkid = prd['Produkid'] ??
+                                            0; // Pastikan ini sesuai dengan kolom di database
+                                        if (Produkid != 0) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      updateproduk(
+                                                          Produkid:
+                                                              Produkid)));
+                                        } else {
+                                          print('ID produk tidak valid');
+                                        }
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete,
+                                          color: Colors.redAccent),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title:
+                                                  const Text('Hapus Produk'),
+                                              content: const Text(
+                                                  'Apakah Anda yakin ingin menghapus produk ini?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: const Text('Batal'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    deleteProduk(
+                                                        prd['Produkid']);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Hapus'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

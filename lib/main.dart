@@ -33,7 +33,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 30),
+          padding: EdgeInsets.symmetric(vertical: 20),
           // width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, colors: [
@@ -70,7 +70,6 @@ class MyHomePage extends StatelessWidget {
                         ],
                       )),
                 ),
-                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
@@ -98,7 +97,6 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
@@ -118,7 +116,7 @@ class MyHomePage extends StatelessWidget {
                       minimumSize: Size(double.infinity, 50),
                     ),
                     child: Text(
-                      'Registrasi',
+                      'Create Account',
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
