@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
-import '../home.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:lat_kasirflutter/home.dart';
 
-class insertpage extends StatefulWidget {
-  const insertpage({super.key});
+class insertpenjualan extends StatefulWidget {
+  const insertpenjualan({super.key});
 
   @override
-  State<insertpage> createState() => _insertpageState();
+  State<insertpenjualan> createState() => _insertpenjualanState();
 }
 
-class _insertpageState extends State<insertpage> {
-  final _formKey = GlobalKey<FormState>();
-  final _namapelanggan = TextEditingController();
-  final _alamat = TextEditingController();
-  final _notlp = TextEditingController();
+class _insertpenjualanState extends State<insertpenjualan> {
 
-  Future<void> AddPelanggan() async {
+  final _formKey = GlobalKey<FormState>();
+  final _tglpenjualan = TextEditingController();
+  final _totalhrg = TextEditingController();
+  final _pelangganid = TextEditingController();
+
+  Future<void> AddPenjualan() async {
     if (_formKey.currentState!.validate()) {
-      final String NamaPelanggan = _namapelanggan.text;
-      final String Alamat = _alamat.text;
-      final String NomorTelepon = _notlp.text;
+      final String TanggalPenjualan = _tglpenjualan.text;
+      final String TotalHarga = _totalhrg.text;
+      final String Pelangganid = _pelangganid.text;
 
       final response = await Supabase.instance.client.from('pelanggan').insert([
         {
-          'NamaPelanggan': NamaPelanggan,
-          'Alamat': Alamat,
-          'NomorTelepon': NomorTelepon,
+          'TanggalPenjualan': TanggalPenjualan,
+          'TotalHarga': TotalHarga,
+          'Pelangganid': Pelangganid,
         }
       ]);
 
@@ -44,9 +45,11 @@ class _insertpageState extends State<insertpage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         backgroundColor: Colors.pink[300],
         title: const Text('Tambah Data'),
@@ -67,7 +70,7 @@ class _insertpageState extends State<insertpage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: _namapelanggan,
+                controller: _tglpenjualan,
                 decoration: const InputDecoration(
                   labelText: 'Nama Pelanggan',
                   border: OutlineInputBorder(),
@@ -81,7 +84,7 @@ class _insertpageState extends State<insertpage> {
               ),
               const SizedBox(height: 16),
               TextFormField(  
-                controller: _alamat,
+                controller: _totalhrg,
                 decoration: const InputDecoration(
                   labelText: 'Alamat',
                   border: OutlineInputBorder(),
@@ -95,7 +98,7 @@ class _insertpageState extends State<insertpage> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _notlp,
+                controller: _pelangganid,
                 decoration: const InputDecoration(
                   labelText: 'Nomer Telepon',
                   border: OutlineInputBorder(),
@@ -109,7 +112,7 @@ class _insertpageState extends State<insertpage> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: AddPelanggan,
+                onPressed: AddPenjualan,
                 child: const Text('Tambah'),
               ),  
             ],

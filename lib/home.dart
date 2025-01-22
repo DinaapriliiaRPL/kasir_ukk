@@ -4,6 +4,7 @@ import 'package:lat_kasirflutter/login.dart';
 import 'package:lat_kasirflutter/pelanggan/indexpelanggan.dart';
 import 'package:lat_kasirflutter/pelanggan/insertpelanggan.dart';
 import 'package:lat_kasirflutter/produk/indexproduk.dart';
+import 'package:lat_kasirflutter/sign.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
@@ -81,7 +82,12 @@ class _homepageState extends State<homepage> {
                 leading: Icon(Icons.app_registration),
                 title: Text('Registrasi'),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => signpage(),
+                    ),
+                  );
                 },
               ),
               ListTile(

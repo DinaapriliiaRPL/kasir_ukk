@@ -36,7 +36,7 @@ class _updateprodukState extends State<updateproduk> {
     setState(() {
       _nmproduk.text = data['NamaProduk'] ?? '';
       _harga.text = data['Harga'] ?? '';
-      _harga.text = data['Stok'] ?? '';
+      _stok.text = data['Stok'] ?? '';
     });
   }
 

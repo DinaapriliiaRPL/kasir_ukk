@@ -26,10 +26,10 @@ class _EditPelangganState extends State<updatepage> {
   // Fungsi untuk memuat data pelanggan berdasarkan ID
   Future<void> _loadPelangganData() async {
     final data = await Supabase.instance.client
-        .from('pelanggan')
-        .select()
-        .eq('Pelangganid', widget.Pelangganid)
-        .single();
+      .from('pelanggan')
+      .select()
+      .eq('Pelangganid', widget.Pelangganid)
+      .single();
 
     setState(() {
       _nmplg.text = data['NamaPelanggan'] ?? '';

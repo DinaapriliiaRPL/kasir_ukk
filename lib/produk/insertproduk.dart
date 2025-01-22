@@ -18,8 +18,8 @@ class _addprodukState extends State<addproduk> {
   Future<void> produk() async{
     if (_formKey.currentState!.validate()) {
       final NamaProduk = _nmprd.text;
-      final Harga = double.tryParse(_harga.text) ?? 0;
-      final Stok = int.tryParse(_stok.text) ?? 0;
+      final Harga = _harga.text ;
+      final Stok = _stok.text ;
 
       final response = await Supabase.instance.client.from('produk').insert([
         {
@@ -28,6 +28,7 @@ class _addprodukState extends State<addproduk> {
           'Stok': Stok,
         }
       ]);
+      
       if (response!= null) {
         Navigator.pushReplacement(context, 
         MaterialPageRoute(builder: (context) => homepage()),
