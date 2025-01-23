@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lat_kasirflutter/login.dart';
+import 'package:lat_kasirflutter/main.dart';
 import 'package:lat_kasirflutter/pelanggan/indexpelanggan.dart';
 import 'package:lat_kasirflutter/pelanggan/insertpelanggan.dart';
 import 'package:lat_kasirflutter/produk/indexproduk.dart';
@@ -97,9 +98,9 @@ class _homepageState extends State<homepage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => loginpage(),
+                      builder: (context) => MyApp(),
                     ),
-                  ); // Navigasi ke halaman login
+                  ); // Navigasi ke halaman awal
                 },
               ),
             ],

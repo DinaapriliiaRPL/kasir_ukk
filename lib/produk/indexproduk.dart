@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lat_kasirflutter/produk/checkout.dart';
 import 'package:lat_kasirflutter/produk/insertproduk.dart';
 import 'package:lat_kasirflutter/produk/updateproduk.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -48,7 +49,26 @@ class _dinaprodukState extends State<dinaproduk> {
       print('error deleting produk: $e');
     }
   }
-  
+
+  Future<void> tambahKePenjualan(
+      int Produkid, String NamaProduk, int Harga, int jumlah) async {
+    try {
+      final response = await Supabase.instance.client.from('penjualan').insert({
+        'Produkid': Produkid,
+        'NamaProduk': NamaProduk,
+        'Harga': Harga,
+        'Jumlah': jumlah,
+        'Total': Harga * jumlah, // Hitung total harga
+        'Tanggal': DateTime.now().toIso8601String(), // Tambahkan tanggal
+      });
+
+      if (response != null) {
+        print('Produk berhasil ditambah ke penjualan.');
+      }
+    } catch (e) {
+      print('Gagal menambah ke penjualan: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +121,7 @@ class _dinaprodukState extends State<dinaproduk> {
                                   fontSize: 16,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              SizedBox(height: 20),
                               Text(
                                 prd['Stok'] != null
                                     ? prd['Stok'].toString()
@@ -166,10 +186,147 @@ class _dinaprodukState extends State<dinaproduk> {
                                   ),
                                   IconButton(
                                     icon: const Icon(
-                                        Icons.add_shopping_cart_rounded,
-                                        color: Colors.green),
-                                    onPressed: () {},
-                                  )
+                                      Icons.add_shopping_cart_rounded,
+                                      color: Colors.green,
+                                    ),
+                                    onPressed: () async {
+                                      int jumlah = 1; // Default jumlah barang
+                                      final stok = prd['Stok'] ??
+                                          0; // Ambil stok dari produk
+                                      if (stok <= 0) {
+                                        // Jika stok habis, tampilkan notifikasi
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'Stok produk habis. Tidak dapat menambah ke keranjang!'),
+                                          ),
+                                        );
+                                        return;
+                                      }
+                                      // Tampilkan dialog untuk memilih jumlah barang
+                                      final selectedJumlah =
+                                          await showDialog<int>(
+                                        context: context,
+                                        builder: (context) {
+                                          return StatefulBuilder(
+                                            builder: (context, setState) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'Produk: ${prd['NamaProduk']}'),
+                                                content: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                        'Stok tersedia: $stok'),
+                                                    const SizedBox(height: 10),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        IconButton(
+                                                          onPressed: jumlah > 1
+                                                              ? () {
+                                                                  setState(() {
+                                                                    jumlah--;
+                                                                  });
+                                                                }
+                                                              : null,
+                                                          icon: Icon(
+                                                              Icons.remove,
+                                                              color: jumlah > 1
+                                                                  ? Colors.black
+                                                                  : Colors
+                                                                      .grey),
+                                                        ),
+                                                        Text(
+                                                          '$jumlah',
+                                                          style: const TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        IconButton(
+                                                          onPressed: jumlah <
+                                                                  stok
+                                                              ? () {
+                                                                  setState(() {
+                                                                    jumlah++;
+                                                                  });
+                                                                }
+                                                              : null,
+                                                          icon: Icon(Icons.add,
+                                                              color: jumlah <
+                                                                      stok
+                                                                  ? Colors.black
+                                                                  : Colors
+                                                                      .grey),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                    child: const Text('Batal'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          context, jumlah);
+                                                    },
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          Colors.pink,
+                                                      foregroundColor:
+                                                          Colors.white,
+                                                    ),
+                                                    child:
+                                                        const Text('Tambahkan'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
+
+                                      if (selectedJumlah != null) {
+                                        // Tambahkan ke keranjang jika jumlah dipilih
+                                        setState(() {
+                                          cart.add({
+                                            'Produkid': prd['Produkid'],
+                                            'NamaProduk': prd['NamaProduk'],
+                                            'Harga': prd['Harga'],
+                                            'Jumlah': selectedJumlah,
+                                          });
+                                        });
+
+                                        //simpan ke tabel penjualan
+                                        await tambahKePenjualan(
+                                          prd['Produkid'],
+                                          prd['NamaProduk'],
+                                          prd['Harga'],
+                                          selectedJumlah,
+                                        );
+
+                                        // Tampilkan notifikasi
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                '${prd['NamaProduk']} berhasil ditambahkan ke keranjang!'),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ],
                               ),
                             ],

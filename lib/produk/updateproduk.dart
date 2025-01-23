@@ -25,7 +25,7 @@ class _updateprodukState extends State<updateproduk> {
     _loadProdukData();
   }
 
-  // Fungsi untuk memuat data pelanggan berdasarkan ID
+  // Fungsi untuk memuat data produk berdasarkan ID
   Future<void> _loadProdukData() async {
     final data = await Supabase.instance.client
         .from('produk')
@@ -35,22 +35,22 @@ class _updateprodukState extends State<updateproduk> {
 
     setState(() {
       _nmproduk.text = data['NamaProduk'] ?? '';
-      _harga.text = data['Harga'] ?? '';
-      _stok.text = data['Stok'] ?? '';
+      _harga.text = data['Harga']?.toString() ?? '';
+      _stok.text = data['Stok']?.toString() ?? '';
     });
   }
 
-  // EditPelanggan.dart
+  // EditProduk.dart
   Future<void> updateProduk() async {
     if (_formKey.currentState!.validate()) {
-      // Melakukan update data pelanggan ke database
+      // Melakukan update data produk ke database
       await Supabase.instance.client.from('produk').update({
         'NamaProduk': _nmproduk.text,
         'Harga': _harga.text,
         'Stok': _stok.text,
       }).eq('Produkid', widget.Produkid);
 
-      // Navigasi ke PelangganTab setelah update, dengan menghapus semua halaman sebelumnya dari stack
+      // Navigasi ke ProdukTab setelah update, dengan menghapus semua halaman sebelumnya dari stack
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => homepage()),
