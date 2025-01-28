@@ -4,11 +4,13 @@ import 'package:lat_kasirflutter/login.dart';
 import 'package:lat_kasirflutter/main.dart';
 import 'package:lat_kasirflutter/pelanggan/indexpelanggan.dart';
 import 'package:lat_kasirflutter/pelanggan/insertpelanggan.dart';
+import 'package:lat_kasirflutter/penjualan/indexpenjualan.dart';
 import 'package:lat_kasirflutter/produk/indexproduk.dart';
 import 'package:lat_kasirflutter/sign.dart';
 
 class homepage extends StatefulWidget {
-  const homepage({super.key});
+  final cart;
+  const homepage({super.key, this.cart});
 
   @override
   State<homepage> createState() => _homepageState();
@@ -110,7 +112,8 @@ class _homepageState extends State<homepage> {
           children: [
             dinaproduk(),
             indexpage(),
-            Center(child: Text('Penjualan')),
+            indexpenjualan(),
+            // indexpenjualan(cart: widget.cart),
             Center(child: Text('Detail Penjualan')),
           ],
         ),
