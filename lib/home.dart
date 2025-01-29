@@ -6,7 +6,8 @@ import 'package:lat_kasirflutter/pelanggan/indexpelanggan.dart';
 import 'package:lat_kasirflutter/pelanggan/insertpelanggan.dart';
 import 'package:lat_kasirflutter/penjualan/indexpenjualan.dart';
 import 'package:lat_kasirflutter/produk/indexproduk.dart';
-import 'package:lat_kasirflutter/sign.dart';
+import 'package:lat_kasirflutter/registrasi/indexuser.dart';
+import 'package:lat_kasirflutter/registrasi/sign.dart';
 
 class homepage extends StatefulWidget {
   final cart;
@@ -88,7 +89,7 @@ class _homepageState extends State<homepage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => signpage(),
+                      builder: (context) => userpage(),
                     ),
                   );
                 },

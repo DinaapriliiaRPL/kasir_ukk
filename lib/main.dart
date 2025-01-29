@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
-import 'sign.dart';
+import 'registrasi/sign.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
