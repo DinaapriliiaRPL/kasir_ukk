@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lat_kasirflutter/home.dart';
 import 'package:lat_kasirflutter/penjualan/indexpenjualan.dart';
-import 'package:lat_kasirflutter/produk/checkout.dart';
+import 'package:lat_kasirflutter/penjualan/checkout.dart';
 import 'package:lat_kasirflutter/produk/insertproduk.dart';
 import 'package:lat_kasirflutter/produk/updateproduk.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
