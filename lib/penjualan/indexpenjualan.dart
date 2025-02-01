@@ -20,9 +20,9 @@ class _indexpenjualanState extends State<indexpenjualan> {
   }
 
   Future<void> fetchPenjualan() async {
-    setState(() {
-      isLoading = true;
-    });
+    // setState(() {
+    //   isLoading = true;
+    // });
     try {
       final response = await Supabase.instance.client
           .from('penjualan')
@@ -41,78 +41,93 @@ class _indexpenjualanState extends State<indexpenjualan> {
 
   Future<void> deletePenjualan(int id) async {
     try {
-      var cekdetail = await Supabase.instance.client
-          .from('detailpenjualan')
-          .select('Detailid')
-          .eq('Penjualaid', id);
-      if (cekdetail.isEmpty) {
-        await Supabase.instance.client
-            .from('penjualan')
-            .delete()
-            .eq('Penjualanid', id);
-        fetchPenjualan();
-      } else {
-        await Supabase.instance.client
-            .from('detailpenjualan')
-            .delete()
-            .eq('Penjualaid', id);
-        await Supabase.instance.client
-            .from('penjualan')
-            .delete()
-            .eq('Penjualanid', id);
-        fetchPenjualan();
-      }
+      await Supabase.instance.client
+          .from('penjualan')
+          .delete()
+          .eq('Penjualanid', id);
+      fetchPenjualan();
     } catch (e) {
       print('Error deleting penjualan: $e');
     }
+
+    // try {
+    //   var cekdetail =
+    // await Supabase.instance.client
+    //       .from('detailpenjualan')
+    //       .select('Detailid')
+    //       .eq('Penjualaid', id);
+    //   if (cekdetail.isEmpty) {
+    //     await Supabase.instance.client
+    //         .from('penjualan')
+    //         .delete()
+    //         .eq('Penjualanid', id);
+    //     fetchPenjualan();
+    //   } else {
+    //     await Supabase.instance.client
+    //         .from('detailpenjualan')
+    //         .delete()
+    //         .eq('Penjualaid', id);
+    //     await Supabase.instance.client
+    //         .from('penjualan')
+    //         .delete()
+    //         .eq('Penjualanid', id);
+    //     fetchPenjualan();
+    //   }
+    // } catch (e) {
+    //   print('Error deleting penjualan: $e');
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: penjualan.length,
-              itemBuilder: (context, index) {
-                final item = penjualan[index];
-                return ListTile(
-                  title: Text(item['pelanggan']['NamaPelanggan']),
-                  subtitle: Text('Total harga: ${item['TotalHarga']}'),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Hapus Pelanggan'),
-                              content: const Text(
-                                  'Apakah anda yakin ingin menghapus data penjualan ini?'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('Batal'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    deletePenjualan(item['Penjualanid']);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Hapus'),
-                                )
-                              ],
-                            );
-                          });
-                    },
-                    // onPressed: () => deletePenjualan(item['Penjualanid']
-                  ),
-                );
+      body:
+          // isLoading
+          //     ? Center(child: CircularProgressIndicator())
+          ListView.builder(
+        itemCount: penjualan.length,
+        itemBuilder: (context, index) {
+          final item = penjualan[index];
+          return ListTile(
+            title: Text(item['pelanggan']['NamaPelanggan']),
+            subtitle: Text('Total harga: ${item['TotalHarga']}'),
+            trailing: IconButton(
+              icon: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Hapus Pelanggan'),
+                        content: const Text(
+                            'Apakah anda yakin ingin menghapus data penjualan ini?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Batal'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              deletePenjualan(item['Penjualanid']);
+                              Navigator.pop(context);
+                              setState(() {
+                                penjualan.removeAt(index);
+                              });
+                            },
+                            child: const Text('Hapus'),
+                          )
+                        ],
+                      );
+                    });
               },
+              // onPressed: () => deletePenjualan(item['Penjualanid']
             ),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var sales = await Navigator.of(context).push(

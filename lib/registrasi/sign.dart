@@ -3,17 +3,18 @@ import 'package:lat_kasirflutter/registrasi/indexuser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../home.dart';
 
-class signpage extends StatefulWidget {
-  const signpage({super.key});
+class insertuser extends StatefulWidget {
+  const insertuser({super.key});
 
   @override
-  State<signpage> createState() => signpageState();
+  State<insertuser> createState() => insertuserState();
 }
 
-class signpageState extends State<signpage> {
+class insertuserState extends State<insertuser> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  final TextEditingController _role = TextEditingController();
 
   //method utk insert data user ke supabases
   Future<void> _adduser() async {
@@ -23,6 +24,7 @@ class signpageState extends State<signpage> {
 
     final username = _username.text;
     final password = _password.text;
+    final role = _role.text;
 
     //validasi input
     if (username.isEmpty || password.isEmpty) {
@@ -91,6 +93,14 @@ class signpageState extends State<signpage> {
                     }
                     return null;
                   },
+                ),
+                const SizedBox( height: 16),
+                TextFormField(
+                  controller: _role,
+                  decoration: const InputDecoration(
+                    labelText: 'Role',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
                 SizedBox(height: 20.0),
                 ElevatedButton(

@@ -53,16 +53,16 @@ class _COpageState extends State<COpage> {
     final String name = nameController.dropDownValue!.value;
     final int quantity = int.parse(quantityController.text);
     print('Pelanggan Name: $name, Quantity: $quantity');
-    // Navigate back to the previous screen after adding the product
+    // Kembali ke layar sebelumnya setelah menambahkan produk
     Navigator.of(context).pop();
   }
 
   void addProduct() {
-    // Implement the logic to add the product, e.g., send data to Supabase
+    // Implementasikan logika untuk menambahkan produk, misalnya, kirim data ke Supabase
     final String name = nameController.dropDownValue!.value;
     final int quantity = int.parse(quantityController.text);
     print('Product Name: $name, Quantity: $quantity');
-    // Navigate back to the previous screen after adding the product
+    // Kembali ke layar sebelumnya setelah menambahkan produk
     Navigator.of(context).pop();
   }
 
