@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lat_kasirflutter/detailpenjualan/indexdetail.dart';
 import 'package:lat_kasirflutter/login.dart';
 import 'package:lat_kasirflutter/main.dart';
 import 'package:lat_kasirflutter/pelanggan/indexpelanggan.dart';
@@ -114,8 +115,7 @@ class _homepageState extends State<homepage> {
             dinaproduk(),
             indexpage(),
             indexpenjualan(),
-            // indexpenjualan(cart: widget.cart),
-            Center(child: Text('Detail Penjualan')),
+            detailpage()
           ],
         ),
       ),

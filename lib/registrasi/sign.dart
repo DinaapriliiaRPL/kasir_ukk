@@ -99,7 +99,6 @@ class insertuserState extends State<insertuser> {
                   controller: _role,
                   decoration: const InputDecoration(
                     labelText: 'Role',
-                    border: OutlineInputBorder(),
                   ),
                 ),
                 SizedBox(height: 20.0),

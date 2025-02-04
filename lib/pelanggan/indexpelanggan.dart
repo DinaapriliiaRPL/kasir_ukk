@@ -70,13 +70,7 @@ class _indexpageState extends State<indexpage> {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       )
-      : GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          childAspectRatio: 0.8
-        ),
-        padding: EdgeInsets.all(8),
+      : ListView.builder(
         itemCount: pelanggan.length,
         itemBuilder: (context, index) {
           final langgan = pelanggan[index];

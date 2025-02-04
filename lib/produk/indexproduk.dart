@@ -116,11 +116,7 @@ class _dinaprodukState extends State<dinaproduk> {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   )
-                : GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                        childAspectRatio: 0.8),
+                : ListView.builder(
                     padding: EdgeInsets.all(8),
                     itemCount: produk.length,
                     itemBuilder: (context, index) {
@@ -140,7 +136,7 @@ class _dinaprodukState extends State<dinaproduk> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                   )),
-                              SizedBox(height: 4),
+                              // SizedBox(height: 4),
                               Text(
                                 prd['Harga'] != null
                                     ? prd['Harga'].toString()
@@ -151,7 +147,7 @@ class _dinaprodukState extends State<dinaproduk> {
                                   fontSize: 16,
                                 ),
                               ),
-                              SizedBox(height: 20),
+                              // SizedBox(height: 20),
                               Text(
                                 prd['Stok'] != null
                                     ? prd['Stok'].toString()

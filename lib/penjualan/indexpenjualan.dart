@@ -81,10 +81,7 @@ class _indexpenjualanState extends State<indexpenjualan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          // isLoading
-          //     ? Center(child: CircularProgressIndicator())
-          ListView.builder(
+      body:ListView.builder(
         itemCount: penjualan.length,
         itemBuilder: (context, index) {
           final item = penjualan[index];
