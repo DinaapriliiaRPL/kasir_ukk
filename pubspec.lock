@@ -192,6 +192,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+<<<<<<< HEAD
   intl:
     dependency: "direct main"
     description:
@@ -200,6 +201,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
+=======
+>>>>>>> 308fc04db69565f7912891cd6f926f3c743c35ec
   jwt_decode:
     dependency: transitive
     description:

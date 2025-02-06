@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:lat_kasirflutter/penjualan/checkout.dart';
-import 'package:intl/intl.dart';
 
 class indexpenjualan extends StatefulWidget {
   const indexpenjualan({super.key});
@@ -30,7 +29,7 @@ class _indexpenjualanState extends State<indexpenjualan> {
           .select('*, pelanggan(*)');
       setState(() {
         penjualan = List<Map<String, dynamic>>.from(response).map((item) {
-          item['date'] = DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now()); 
+          item['date'] = DateTime.now().toString();
           return item;
         }).toList();
         isLoading = false;

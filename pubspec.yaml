@@ -38,7 +38,10 @@ dependencies:
   supabase_flutter: ^2.8.3
   loading_animation_widget: ^1.3.0
   dropdown_textfield: ^1.2.0
+<<<<<<< HEAD
   intl: ^0.18.1 
+=======
+>>>>>>> 308fc04db69565f7912891cd6f926f3c743c35ec
 
 dev_dependencies:
   flutter_test:

@@ -27,7 +27,7 @@ class _loginpageState extends State<loginpage> {
       return; //hasil atau pengembaslian nilai
     }
 
-    try { //mencoba memasukkan data, jika salah ke else jika benar ke if
+    try { //mencoba memasukkan data, jika salah ke else jika benar ke
       // Mengambil data pengguna dari tabel 'user' berdasarkan username
       final response = await supabase //menunggu dari db
           .from('user') //dari tabel
